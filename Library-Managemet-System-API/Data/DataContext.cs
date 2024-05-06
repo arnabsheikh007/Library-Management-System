@@ -29,7 +29,7 @@ namespace Library_Managemet_System_API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            
 
             modelBuilder.Entity<Book>()
                 .HasOne(b => b.Author)
@@ -45,6 +45,8 @@ namespace Library_Managemet_System_API.Data
                 .HasOne(bb => bb.Book)
                 .WithMany()
                 .HasForeignKey(bb => bb.BookID);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
