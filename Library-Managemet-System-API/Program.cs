@@ -1,4 +1,5 @@
 using Library_Managemet_System_API.Data;
+using Library_Managemet_System_API.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,11 @@ builder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
     var connectionString = configuration.GetConnectionString("Default");
     options.UseMySQL(connectionString);
 });
+
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBorrowedBookRepository, BorrowedBookRepository>();
 
 var app = builder.Build();
 
