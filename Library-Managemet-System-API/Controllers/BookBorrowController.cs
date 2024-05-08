@@ -39,7 +39,17 @@ namespace Library_Managemet_System_API.Controllers
         [Route("return/{borrowId}")]
         public IActionResult ReturnBook(int borrowId)
         {
-            _borrowedBookRepository.DeleteBorrowedBook(borrowId);
+            var borrowedBook = _borrowedBookRepository.GetBorrowedBookById(borrowId);
+
+            if (borrowedBook == null)
+            {
+                return NotFound();
+            }
+            borrowedBook.Status = "returned";
+            borrowedBook.ReturnDate = DateTime.Now;
+
+            _borrowedBookRepository.UpdateBorrowedBook(borrowedBook);
+
             return StatusCode(StatusCodes.Status200OK);
         }
     }
